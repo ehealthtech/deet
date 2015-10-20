@@ -1,0 +1,42 @@
+{
+  "name": "deet",
+  "version": "1.0.0",
+  "description": "A bad data repellent. Use to make your API more intelligent and expressive, and safer, with JSONSchema validation",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "node test"
+  },
+  "keywords": [
+    "jsonschema",
+    "express",
+    "middleware",
+    "xss",
+    "api"
+  ],
+  "author": "Sandro Pasquali <spasquali@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^2.10.2",
+    "body-parser": "^1.14.1",
+    "busboy": "^0.2.11",
+    "lodash": "^3.10.1",
+    "randexp": "^0.4.1",
+    "schemap": "^1.0.3",
+    "verbal-expressions": "^0.1.2"
+  },
+  "devDependencies": {
+    "bootstrapt": "^1.0.1",
+    "express": "^4.13.3"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ehealthtech/deet.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ehealthtech/deet/issues"
+  },
+  "homepage": "https://github.com/ehealthtech/deet"
+}
