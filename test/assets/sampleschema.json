@@ -3,7 +3,8 @@
     "type": "object",
     "properties": {
     "firstName": {
-        "type": "string"
+        "type": "string",
+        "pattern": "^[A-Za-z]+$"
     },
     "lastName": {
         "type": "string"
