@@ -15,18 +15,12 @@ var sampleSchema = require('../../assets/sampleschema.json');
 
 app.post('/', deet(sampleSchema), function(req, res) {
 
-    res.status(200).json({
-        validated: req.validatedPayload,
-        errored: req.validationError
-    });
+    res.status(200).json(req.validatedPayload);
 });
 
 app.get('/test/:firstName/:lastName', deet(sampleSchema), function(req, res) {
 
-    res.status(200).json({
-        validated: req.validatedPayload,
-        errored: req.validationError
-    });
+    res.status(200).json(req.validatedPayload);
 })
 
 app.get('/jquery', function(req, res) {
