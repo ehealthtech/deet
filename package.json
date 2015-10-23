@@ -19,6 +19,7 @@
     "bluebird": "^2.10.2",
     "body-parser": "^1.14.1",
     "busboy": "^0.2.11",
+    "helmet": "^0.13.0",
     "lodash": "^3.10.1",
     "randexp": "^0.4.1",
     "schemap": "^1.0.3",
@@ -28,7 +29,6 @@
     "bootstrapt": "^1.0.1",
     "express": "^4.13.3",
     "nightmare": "^2.0.7",
-    "superagent": "^1.4.0",
     "superagent-bluebird-promise": "^2.1.0"
   },
   "directories": {
