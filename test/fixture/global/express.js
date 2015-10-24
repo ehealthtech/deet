@@ -5,22 +5,38 @@
 
 var fs = require('fs');
 var Path = require('path');
-var deet = require('../../../lib')({
-    validator: 'ajv'
-});
 var express = require('express');
 var app = express();
+
+var deet = require('../../../lib')({
+    validator: 'ajv',
+    app: app,
+    sanitizeParams : true,
+    xFrame : 'deny',
+    xssFilter : true,
+    xssCSP : {
+		defaultSrc: ["'unsafe-inline'"],
+		scriptSrc: ["*.localhost:2112 'unsafe-inline'"],
+		styleSrc: ["'unsafe-inline'"],
+		imgSrc: [],
+		connectSrc: ["*"],
+		fontSrc: [],
+		objectSrc: [],
+		mediaSrc: [],
+		frameSrc: []
+	}
+});
 
 var sampleSchema = require('../../assets/sampleschema.json');
 
 app.post('/', deet(sampleSchema), function(req, res) {
 
-    res.status(200).json(req.validatedPayload);
+    res.status(200).json(req.validJSON);
 });
 
 app.get('/test/:firstName/:lastName', deet(sampleSchema), function(req, res) {
 
-    res.status(200).json(req.validatedPayload);
+    res.status(200).json(req.validJSON);
 })
 
 app.get('/jquery', function(req, res) {

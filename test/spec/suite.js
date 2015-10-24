@@ -52,7 +52,11 @@ module.exports = function(test, Promise) {
 		test.pass(util.format('Correctly rejected badSample: (%s) %s', err.status, JSON.stringify(err.body)));
 	})
 	.then(function(response) {
-
+	
+		if(response) {
+			test.fail('Should not have validated badSample');
+		}
+		
 		return superagent.get('localhost:2112/test/mary/poppins');
 	})
 	.catch(function(err) {
@@ -68,6 +72,12 @@ module.exports = function(test, Promise) {
 	.catch(function(err) {
 
 		test.pass(util.format('Integer in :firstname correctly caused rejection of JSON: (%s) %s', err.status, JSON.stringify(err.body)));
+	})
+	.then(function(response) {
+
+		if(response) {
+			test.fail('Should not have validated :firstName/:lastName');
+		}
 	})
 	.finally(function() {
 

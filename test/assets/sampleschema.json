@@ -7,12 +7,13 @@
         "pattern": "^[A-Za-z]+$"
     },
     "lastName": {
-        "type": "string"
+        "type": "string",
+        "pattern": "^[A-Za-z_-]+$"
     },
     "age": {
         "description": "Age in years",
-            "type": "integer",
-            "minimum": 0
+		"type": "integer",
+		"pattern": "^(0?[1-9]|[1-9][0-9])$"
     }
 },
     "required": ["firstName", "lastName"]
