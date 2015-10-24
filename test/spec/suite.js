@@ -78,11 +78,28 @@ module.exports = function(test, Promise) {
 		if(response) {
 			test.fail('Should not have validated :firstName/:lastName');
 		}
+		
+		return superagent.get('localhost:2112/test/a/b?array=1&foo=2&array=2');
+	})
+	.then(function(response) {
+	
+		test.deepEqual(response.body, { 
+			firstName: 'a', 
+			lastName: 'b', 
+			array: '2', 
+			foo: '2' 
+		}, '#hppProtection is working');
+		
+		return superagent.get('localhost:2112/test/a/b?foo=<script>');
+	})
+	.then(function(response) {
+	
+		test.ok(response.body.foo === '&lt;script>', '#xssFilter is working');
 	})
 	.finally(function() {
 
-			test.comment('Shutting down Express server');
+		test.comment('Shutting down Express server');
 
-			server.close();
+		server.close();
 	});
 };

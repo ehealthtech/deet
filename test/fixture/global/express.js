@@ -11,7 +11,9 @@ var app = express();
 var deet = require('../../../lib')({
     validator: 'ajv',
     app: app,
-    sanitizeParams : true,
+    sanitizeURLEncoded : true,
+    hidePoweredBy : true,
+    hppProtection : true,
     xFrame : 'deny',
     xssFilter : true,
     xssCSP : {
@@ -23,7 +25,7 @@ var deet = require('../../../lib')({
 		fontSrc: [],
 		objectSrc: [],
 		mediaSrc: [],
-		frameSrc: []
+		frameSrc: ["'deny'"]
 	}
 });
 
