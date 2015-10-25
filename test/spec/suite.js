@@ -79,18 +79,26 @@ module.exports = function(test, Promise) {
 			test.fail('Should not have validated :firstName/:lastName');
 		}
 		
-		return superagent.get('localhost:2112/test/a/b?array=1&foo=2&array=2');
+		return superagent.get('localhost:2112/test?no=<schema>');
+	})
+	.then(function(response) {
+	
+		test.deepEqual(response.body, {'no':'&lt;schema>'}, 'Non-schematized routes still benefit from use(deet()) middleware');
+		
+		// Test #hppProtection
+		// #hppProtection should convert {array: [1,2]} into {array: 2}
+		//
+		return superagent.get('localhost:2112/test?array=1&foo=2&array=2');
 	})
 	.then(function(response) {
 	
 		test.deepEqual(response.body, { 
-			firstName: 'a', 
-			lastName: 'b', 
-			array: '2', 
+		
+			array: '2', // NOT array: [1,2]
 			foo: '2' 
 		}, '#hppProtection is working');
 		
-		return superagent.get('localhost:2112/test/a/b?foo=<script>');
+		return superagent.get('localhost:2112/test?foo=<script>');
 	})
 	.then(function(response) {
 	
