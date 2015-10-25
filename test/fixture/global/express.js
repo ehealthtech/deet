@@ -29,6 +29,8 @@ var deet = require('../../../lib')({
 	}
 });
 
+app.use(deet());
+
 var sampleSchema = require('../../assets/sampleschema.json');
 
 app.post('/', deet(sampleSchema), function(req, res) {
@@ -37,6 +39,11 @@ app.post('/', deet(sampleSchema), function(req, res) {
 });
 
 app.get('/test/:firstName/:lastName', deet(sampleSchema), function(req, res) {
+
+    res.status(200).json(req.validJSON);
+})
+
+app.get('/test', function(req, res) {
 
     res.status(200).json(req.validJSON);
 })
