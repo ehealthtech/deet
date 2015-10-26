@@ -105,7 +105,8 @@ module.exports = function(test, Promise) {
 	
 		test.ok(response.body.foo === '&lt;script>', '#xssFilter is working');
 
-        return superagent.post('localhost:2112/upload')
+        return superagent
+                .post('localhost:2112/upload')
                 .attach('sampleUpload',
                         Path.resolve(__dirname, '../assets/sampleschema.json'),
                         'sample.json');
@@ -117,7 +118,7 @@ module.exports = function(test, Promise) {
 
         if(!response.body) {
 
-            return test.fail('File uploading seems to have succeeded, but no response.body present');
+            return test.fail('File upload returned without errors, but no response.body present. Is #useMultipartParser set to false?');
         }
 
         return new Promise(function(resolve, reject) {
@@ -132,7 +133,7 @@ module.exports = function(test, Promise) {
 
                 } else {
 
-                    test.pass('File uploads are working');
+                    test.pass('File uploads are being handled correctly');
                 }
 
                 resolve();

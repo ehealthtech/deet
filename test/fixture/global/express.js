@@ -11,6 +11,7 @@ var app = express();
 
 var deet = require('../../../lib')({
     validator: 'ajv',
+    useMultipartParser : true,
     tempUploadFolder: os.tmpDir(),
     fileFilter : function(fileinfo, headers) { // accept all files
         return true;
