@@ -16,6 +16,7 @@ module.exports = function(test, Promise) {
     test.ok(this.express.app, 'Received Express app');
 
     return Promise.resolve()
+    .bind({})
     .then(function() {
 
         return superagent.get('localhost:2112');
@@ -103,7 +104,41 @@ module.exports = function(test, Promise) {
 	.then(function(response) {
 	
 		test.ok(response.body.foo === '&lt;script>', '#xssFilter is working');
+
+        return superagent.post('localhost:2112/upload')
+                .attach('sampleUpload',
+                        Path.resolve(__dirname, '../assets/sampleschema.json'),
+                        'sample.json');
 	})
+    .catch(function(err) {
+        test.fail(util.format('Cannot complete file upload: %s %s', err.message, JSON.stringify(err.originalError)));
+    })
+    .then(function(response) {
+
+        if(!response.body) {
+
+            return test.fail('File uploading seems to have succeeded, but no response.body present');
+        }
+
+        return new Promise(function(resolve, reject) {
+
+            // Unlink any uploaded folder. This also is used to
+            // test if the file exist in the /tmp folder as expected.
+            //
+            var stats = fs.unlink(response.body.file.path, function(err) {
+                if(err) {
+
+                    test.fail('File upload failure -> cannot target file in tmp directory: ' + err.message);
+
+                } else {
+
+                    test.pass('File uploads are working');
+                }
+
+                resolve();
+            });
+        });
+    })
 	.finally(function() {
 
 		test.comment('Shutting down Express server');

@@ -5,11 +5,16 @@
 
 var fs = require('fs');
 var Path = require('path');
+var os = require('os');
 var express = require('express');
 var app = express();
 
 var deet = require('../../../lib')({
     validator: 'ajv',
+    tempUploadFolder: os.tmpDir(),
+    fileFilter : function(fileinfo, headers) { // accept all files
+        return true;
+    },
     app: app,
     sanitizeURLEncoded : true,
     hidePoweredBy : true,
@@ -51,6 +56,11 @@ app.get('/test', function(req, res) {
 app.get('/jquery', function(req, res) {
 
     fs.createReadStream('test/assets/jquery.min.js').pipe(res);
+});
+
+app.post('/upload', function(req, res) {
+
+    res.status(200).json(req.files);
 });
 
 app.get('/', function(req, res) {

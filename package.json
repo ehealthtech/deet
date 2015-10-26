@@ -1,6 +1,6 @@
 {
   "name": "deet",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "A bad data repellent. Use to make your API more intelligent and expressive, and safer, with JSONSchema validation",
   "main": "lib/index.js",
   "scripts": {
